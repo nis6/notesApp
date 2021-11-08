@@ -1,0 +1,118 @@
+html, body{
+    height: 100%;
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.notes{
+    display:flex;
+    height: 100%;
+}
+
+.notes .notes-sidebar{
+    background: rgb(38, 38, 65);
+    border-right: grey 2px solid;
+    flex-shrink: 0;
+    overflow-y: auto;
+    width: 250px;
+    padding: 1em;
+}
+
+.addnotes{
+    border-radius: 4px;
+    background-color: rgb(105, 105, 129);
+    color: whitesmoke;
+    width: 100%;
+    height: 40px;
+    font-size: 1.25em;
+    font-weight: 120;
+    margin: 10px 0;
+}
+.addnotes:hover{
+    background-color: rgb(42, 42, 68);
+    border: whitesmoke solid 1px;
+}
+
+
+.notes-list{
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+.notes-list-item{
+    margin: 5px;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: smaller;
+}
+
+.notes-list-item-selected{
+    padding: 5px;
+    font-weight: 300;
+    
+    background-color: rgb(195, 195, 209);
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: smaller;
+}
+
+.notes-mini-title{
+    font-size: 1em;
+    padding: 2px;
+    font-weight: bold;
+    color: rgb(53, 52, 52);
+    margin: 4px;
+    border-bottom: 1px rgb(129, 127, 127) solid;
+}
+.notes-mini-body{
+    margin: 2px;
+    height: 60px;
+    padding: 3px 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: justify;
+}
+
+.notes-mini-updated{
+        color: rgb(100, 98, 98);
+        font-style: italic;
+        text-align: right;
+        padding: 3px;
+        padding-top: 4px;
+}
+
+
+.notes-preview{
+    display: flex;
+    background: rgb(195, 195, 209);
+    flex-direction: column;
+    padding: 2em 3em;
+    flex-grow: 1;
+}
+
+.notes-title,
+.notes-body {
+    background: rgb(195, 195, 209);
+    border: none;
+    outline: none;
+    width: 100%;
+    border: none;
+}
+
+.notes-title {
+    border-bottom: gray solid 1px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    
+}
+
+.notes-body {
+    flex-grow: 1;
+    font-size: 1.2em;
+    line-height: 1.5;
+    margin-top: 2em;
+    resize: none;
+}
