@@ -4,6 +4,7 @@ import NotesAPI from "./NotesAPI.js";
 export default class App{
 
     constructor(root){
+        
         //assign properties to app object
         this.notes=[];
         this.activeNote=null;
@@ -60,6 +61,8 @@ export default class App{
                });
 
                this.refreshNotes();
+               
+
             },
             onNoteDelete: noteId=>{
                 NotesAPI.deleteNote(noteId);

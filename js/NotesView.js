@@ -107,4 +107,6 @@ export default class NotesView{
         this.root.querySelector(".notes-preview").style.visibility = visible ? "visible": "hidden";
     }
 
+    
+
 }
