@@ -20,21 +20,21 @@ export default class NotesView{
             //console.log("input title"+inpTitle.value);
             const inpBody=this.root.querySelector(".notes-body");
             //console.log("input body"+inpBody.value);
-            btnAddNote.addEventListener("click",()=>{
-                this.onNoteAdd();
-            })
+            btnAddNote.addEventListener("click",onNoteAdd)/*()=>{
+                this.onNoteAdd()//??why not pass it directly
+            })*/
 
 
             const inpfields=[inpTitle,inpBody];// doesnt work on directly applying foreach
             inpfields.forEach(inpfield => {
                 inpfield.addEventListener("blur",()=>{
-                    console.log("input value"+ inpTitle.value);
-                    console.log("input value"+ inpBody.value);
                     const updatedTitle=inpTitle.value.trim();
                     const updatedBody=inpBody.value.trim();
                     this.onNoteEdit(updatedTitle,updatedBody);
                 }); 
             });
+
+           
 
             this.updateNotesPreviewVisibility(false);
 
@@ -55,6 +55,17 @@ export default class NotesView{
                 </div>
             </div>
         `
+    }
+
+    moveEditedNote(note){
+        const inpfields=[inpTitle,inpBody];
+        inpfields.forEach(inpfield => {
+            inpfield.addEventListener("input",()=>{
+                const notesListContainer= this.root.querySelector(".notes-list");
+                const html= this.createListItemHTML(note.id, note.title,note.body, new Date(note.updated));//optimise this and pass note instead all one at a time
+                notesListContainer.insertAdjacentHTML("afterbegin",html);
+            }); 
+        });
     }
     
 

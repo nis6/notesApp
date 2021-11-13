@@ -37,8 +37,8 @@ export default class App{
     handlers(){
         return{
             onNoteSelect: noteId=>{
-                //??this function declaration is passed to constructor hence used somewhere else, 
-                //but it is executed here so yeah can use this.notes
+               //arrow function doesn't have its own binding for 'this'
+               //so this retains the value of enclosing lexical context's this 
                 const selectedNote=this.notes.find(note=>note.id==noteId);
                 this.setActiveNote(selectedNote);
             },
@@ -59,10 +59,9 @@ export default class App{
                  title,
                  body  
                });
-
                this.refreshNotes();
-               
-
+               const note=this.notes.find(note=>note.id==this.activeNote.id);
+               this.view.moveEditedNote(note);
             },
             onNoteDelete: noteId=>{
                 NotesAPI.deleteNote(noteId);

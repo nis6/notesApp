@@ -6,9 +6,11 @@ export default class NotesAPI{
     static getAllNotes(){
         //converts the local storage string into js object if empty then parses empty arra
         const notes=JSON.parse(localStorage.getItem("notesapp-notes")||"[]");
-        
+        console.log("notes array: "+notes)
         return notes.sort((a,b)=>{
-            return new Date(a.update) > new Date(b.update) ? -1 : 1;
+            //sort notes array in descending order of date
+            console.log(a.updated)
+            return new Date(a.updated) > new Date(b.updated) ? -1 : 1;
         });
     }
 
