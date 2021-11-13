@@ -36,9 +36,9 @@ export default class App{
 
     handlers(){
         return{
+            //arrow function doesn't have its own binding for 'this'
+            //so this retains the value of enclosing lexical context's this 
             onNoteSelect: noteId=>{
-               //arrow function doesn't have its own binding for 'this'
-               //so this retains the value of enclosing lexical context's this 
                 const selectedNote=this.notes.find(note=>note.id==noteId);
                 this.setActiveNote(selectedNote);
             },

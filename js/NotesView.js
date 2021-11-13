@@ -10,20 +10,61 @@ export default class NotesView{
                                     <div class="notes-list"></div>
                                 </div>
 
-                                <div class="notes-preview">
-                                    <input type="text" class="notes-title" placeholder="Your Title...">
-                                    <textarea class="notes-body" placeholder="Start writing your notes here..."></textarea>
+                               <div class="notes-preview">
+                                    <div class="editor">
+                                        <input type="text" class="notes-title" placeholder="Your Title...">
+                                        <div class="text-body">
+                                            <textarea class="notes-body" placeholder="Start writing your notes here..."></textarea>
+                                        </div>
+                                    </div>
+                
+                                    <div class="tool-bar">
+                                        <button class="check-box">Check-box</button>
+                                        <button class="bullets">Bullets</button>
+                                        <button class="image">Image</button>
+                                        <button class="table">Table</button>
+                                    </div>
                                 </div>`
 
             const btnAddNote=this.root.querySelector(".addnotes");
-            const inpTitle=this.root.querySelector(".notes-title");
-            //console.log("input title"+inpTitle.value);
-            const inpBody=this.root.querySelector(".notes-body");
-            //console.log("input body"+inpBody.value);
-            btnAddNote.addEventListener("click",onNoteAdd)/*()=>{
-                this.onNoteAdd()//??why not pass it directly
-            })*/
+            const checkbox=this.root.querySelector(".check-box");
+            const bullets=this.root.querySelector(".bullets");
+            const image=this.root.querySelector(".image");
+            const table=this.root.querySelector(".table");
 
+            const editor=this.root.querySelector(".editor");
+            const inpTitle=this.root.querySelector(".notes-title");
+            const inpBody=this.root.querySelector(".notes-body");
+           
+            btnAddNote.addEventListener("click",onNoteAdd);
+            checkbox.addEventListener("click",()=>{
+                editor.insertAdjacentHTML("beforeend",`
+                    <div class="tool-container">
+                    ${this.ToolItemHTML["checkbox"]}
+                    </div>
+                `)  
+            })
+            bullets.addEventListener("click",()=>{
+                editor.insertAdjacentHTML("beforeend",`
+                    <div class="tool-container">
+                    ${this.ToolItemHTML["bullets"]}
+                    </div>
+                `)  
+            })
+            image.addEventListener("click",()=>{
+                editor.insertAdjacentHTML("beforeend",`
+                    <div class="tool-container">
+                    ${this.ToolItemHTML["image"]}
+                    </div>
+                `)  
+            })
+            table.addEventListener("click",()=>{
+                editor.insertAdjacentHTML("beforeend",`
+                    <div class="tool-container">
+                    ${this.ToolItemHTML["table"]}
+                    </div>
+                `)  
+            })
 
             const inpfields=[inpTitle,inpBody];// doesnt work on directly applying foreach
             inpfields.forEach(inpfield => {
@@ -33,9 +74,6 @@ export default class NotesView{
                     this.onNoteEdit(updatedTitle,updatedBody);
                 }); 
             });
-
-           
-
             this.updateNotesPreviewVisibility(false);
 
     }
@@ -57,15 +95,19 @@ export default class NotesView{
         `
     }
 
-    moveEditedNote(note){
-        const inpfields=[inpTitle,inpBody];
-        inpfields.forEach(inpfield => {
-            inpfield.addEventListener("input",()=>{
-                const notesListContainer= this.root.querySelector(".notes-list");
-                const html= this.createListItemHTML(note.id, note.title,note.body, new Date(note.updated));//optimise this and pass note instead all one at a time
-                notesListContainer.insertAdjacentHTML("afterbegin",html);
-            }); 
-        });
+    ToolItemHTML={
+        checkbox:   `<input type="checkbox" id="checkbox" value="HTML"><span class="checkmark"></span>
+                     <label for="html"><textarea class="notes-body" placeholder="task..."></textarea></label>`,
+
+        bullets:   `<input type="checkbox" id="checkbox" value="HTML"><span class="checkmark"></span>
+                     <label for="html"><textarea class="notes-body" placeholder="task..."></textarea></label>`,
+
+        image:   `<input type="checkbox" id="checkbox" value="HTML"><span class="checkmark"></span>
+                     <label for="html"><textarea class="notes-body" placeholder="task..."></textarea></label>`,
+
+        table:   `<input type="checkbox" id="checkbox" value="HTML"><span class="checkmark"></span>
+                     <label for="html"><textarea class="notes-body" placeholder="task..."></textarea></label>`
+
     }
     
 
