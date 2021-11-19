@@ -20,50 +20,74 @@ export default class NotesView{
                 
                                     <div class="tool-bar">
                                         <button class="check-box">Check-box</button>
-                                        <button class="bullets">Bullets</button>
+                                        <button class="list">List</button>
                                         <button class="image">Image</button>
                                         <button class="table">Table</button>
                                     </div>
                                 </div>`
 
             const btnAddNote=this.root.querySelector(".addnotes");
-            const checkbox=this.root.querySelector(".check-box");
-            const bullets=this.root.querySelector(".bullets");
-            const image=this.root.querySelector(".image");
-            const table=this.root.querySelector(".table");
+            const btnCheckbox=this.root.querySelector(".check-box");
+            const btnList=this.root.querySelector(".list");
+            const btnImage=this.root.querySelector(".image");
+            const btnTable=this.root.querySelector(".table");
 
             const editor=this.root.querySelector(".editor");
+            const textbody=this.root.querySelector(".text-body");
             const inpTitle=this.root.querySelector(".notes-title");
             const inpBody=this.root.querySelector(".notes-body");
            
             btnAddNote.addEventListener("click",onNoteAdd);
-            checkbox.addEventListener("click",()=>{
-                editor.insertAdjacentHTML("beforeend",`
-                    <div class="tool-container">
+            btnCheckbox.addEventListener("click",()=>{
+                textbody.insertAdjacentHTML("beforeend",`
+                    <div class="tool-container" id="checkbox-div">
                     ${this.ToolItemHTML["checkbox"]}
                     </div>
                 `)  
-            })
-            bullets.addEventListener("click",()=>{
-                editor.insertAdjacentHTML("beforeend",`
-                    <div class="tool-container">
-                    ${this.ToolItemHTML["bullets"]}
+
+                updateScroll();
+            });
+
+            btnList.addEventListener("click",()=>{
+                textbody.insertAdjacentHTML("beforeend",`
+                    <div class="tool-container" id="list-div">
+                    ${this.ToolItemHTML["list"]}
                     </div>
                 `)  
-            })
-            image.addEventListener("click",()=>{
+
+                updateScroll();
+            });
+
+            btnImage.addEventListener("click",()=>{
+                textbody.insertAdjacentHTML("beforeend",`
+                    <div class="tool-container" id="image-div">
+                       <input type="file" id="imgInput" name="fileInput"/ style="height:0px;overflow:hidden">
+                       <img id="imgOutput" width="100%" >
+                    </div>`
+                ) 
+                //to display image 
+                let outImage=this.root.querySelector("#imgOutput");
+                //invisible tag to take input as an image file
+                let inImage=this.root.querySelector("#imgInput");
+                inImage.addEventListener("change", (e)=>{
+                    //set the src tag for display img tag url 
+                    outImage.src=URL.createObjectURL(e.target.files[0]); //creates a url using the object passed
+                })
+                //bind click on image button to input-file tag
+                inImage.click();
+                //to free up memory
+                URL.revokeObjectURL() 
+
+                updateScroll();
+            });
+
+            btnTable.addEventListener("click",()=>{
                 editor.insertAdjacentHTML("beforeend",`
-                    <div class="tool-container">
-                    ${this.ToolItemHTML["image"]}
-                    </div>
-                `)  
-            })
-            table.addEventListener("click",()=>{
-                editor.insertAdjacentHTML("beforeend",`
-                    <div class="tool-container">
+                    <div class="tool-container" id="table-div">
                     ${this.ToolItemHTML["table"]}
                     </div>
                 `)  
+                updateScroll();
             })
 
             const inpfields=[inpTitle,inpBody];// doesnt work on directly applying foreach
@@ -76,6 +100,12 @@ export default class NotesView{
             });
             this.updateNotesPreviewVisibility(false);
 
+    }
+
+
+    updateScroll(){
+        var element = document.getElementById(".editor");
+        element.scrollTop = element.scrollHeight;
     }
 
     createListItemHTML(id, title, body, updated){
@@ -92,18 +122,15 @@ export default class NotesView{
                     ${updated.toLocaleString(undefined, {dateStyle: "full", timeStyle: "short"})}
                 </div>
             </div>
+           
         `
     }
 
     ToolItemHTML={
-        checkbox:   `<input type="checkbox" id="checkbox" value="HTML"><span class="checkmark"></span>
-                     <label for="html"><textarea class="notes-body" placeholder="task..."></textarea></label>`,
+        checkbox:   `<label class="form-control"> <input type="checkbox" name="checkbox" /> </label>
+                     <textarea class="notes-body" placeholder="task..."></textarea>`,
 
-        bullets:   `<input type="checkbox" id="checkbox" value="HTML"><span class="checkmark"></span>
-                     <label for="html"><textarea class="notes-body" placeholder="task..."></textarea></label>`,
-
-        image:   `<input type="checkbox" id="checkbox" value="HTML"><span class="checkmark"></span>
-                     <label for="html"><textarea class="notes-body" placeholder="task..."></textarea></label>`,
+        list:    `<label class="form-control"><li></li><textarea class="notes-body" placeholder="list item..."></textarea></label> `,
 
         table:   `<input type="checkbox" id="checkbox" value="HTML"><span class="checkmark"></span>
                      <label for="html"><textarea class="notes-body" placeholder="task..."></textarea></label>`
