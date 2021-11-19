@@ -14,7 +14,7 @@ export default class NotesView{
                                     <div class="editor">
                                         <input type="text" class="notes-title" placeholder="Your Title...">
                                         <div class="text-body">
-                                            <textarea class="notes-body" placeholder="Start writing your notes here..."></textarea>
+                                            <textarea class="notes-body" placeholder="Start writing your notes here..." rows="1"></textarea>
                                         </div>
                                     </div>
                 
@@ -23,20 +23,27 @@ export default class NotesView{
                                         <button class="list">List</button>
                                         <button class="image">Image</button>
                                         <button class="table">Table</button>
+                                        <button class="text">Text</button>
                                     </div>
                                 </div>`
 
+            
             const btnAddNote=this.root.querySelector(".addnotes");
             const btnCheckbox=this.root.querySelector(".check-box");
             const btnList=this.root.querySelector(".list");
             const btnImage=this.root.querySelector(".image");
-            const btnTable=this.root.querySelector(".table");
+            const btnText=this.root.querySelector(".text");
 
             const editor=this.root.querySelector(".editor");
             const textbody=this.root.querySelector(".text-body");
             const inpTitle=this.root.querySelector(".notes-title");
             const inpBody=this.root.querySelector(".notes-body");
-           
+            
+            
+            
+            const textarea = this.root.querySelector('textarea');
+            const growingTextarea = new Autogrow(textarea);
+
             btnAddNote.addEventListener("click",onNoteAdd);
             btnCheckbox.addEventListener("click",()=>{
                 textbody.insertAdjacentHTML("beforeend",`
@@ -44,8 +51,7 @@ export default class NotesView{
                     ${this.ToolItemHTML["checkbox"]}
                     </div>
                 `)  
-
-                updateScroll();
+                this.updatetextarea();
             });
 
             btnList.addEventListener("click",()=>{
@@ -54,21 +60,33 @@ export default class NotesView{
                     ${this.ToolItemHTML["list"]}
                     </div>
                 `)  
+                //let textarealist = this.root.querySelector('.tool-container textarea');
+                //let growingTextarealist = new Autogrow(textarealist);
+                this.updatetextarea();
+            });
 
-                updateScroll();
+            btnText.addEventListener("click",()=>{
+                textbody.insertAdjacentHTML("beforeend",`
+                    <div class="tool-container" id="text-div">
+                    ${this.ToolItemHTML["text"]}
+                    </div>
+                `)  
+                //let textarealist = this.root.querySelector('.tool-container textarea');
+                //let growingTextarealist = new Autogrow(textarealist);
+                this.updatetextarea();
             });
 
             btnImage.addEventListener("click",()=>{
                 textbody.insertAdjacentHTML("beforeend",`
-                    <div class="tool-container" id="image-div">
-                       <input type="file" id="imgInput" name="fileInput"/ style="height:0px;overflow:hidden">
-                       <img id="imgOutput" width="100%" >
+                    <div class="tool-container">
+                       <input type="file" class="imgInput" name="fileInput"/ style="height:0px;overflow:hidden">
+                       <img class="imgOutput" width="100%" >
                     </div>`
                 ) 
                 //to display image 
-                let outImage=this.root.querySelector("#imgOutput");
+                let outImage=this.root.querySelector(".imgOutput");
                 //invisible tag to take input as an image file
-                let inImage=this.root.querySelector("#imgInput");
+                let inImage=this.root.querySelector(".imgInput");
                 inImage.addEventListener("change", (e)=>{
                     //set the src tag for display img tag url 
                     outImage.src=URL.createObjectURL(e.target.files[0]); //creates a url using the object passed
@@ -78,17 +96,8 @@ export default class NotesView{
                 //to free up memory
                 URL.revokeObjectURL() 
 
-                updateScroll();
+                this.updatetextarea();
             });
-
-            btnTable.addEventListener("click",()=>{
-                editor.insertAdjacentHTML("beforeend",`
-                    <div class="tool-container" id="table-div">
-                    ${this.ToolItemHTML["table"]}
-                    </div>
-                `)  
-                updateScroll();
-            })
 
             const inpfields=[inpTitle,inpBody];// doesnt work on directly applying foreach
             inpfields.forEach(inpfield => {
@@ -99,13 +108,27 @@ export default class NotesView{
                 }); 
             });
             this.updateNotesPreviewVisibility(false);
+            
 
     }
 
 
-    updateScroll(){
-        var element = document.getElementById(".editor");
-        element.scrollTop = element.scrollHeight;
+    updatetextarea(){
+        const txHeight = 20;
+        const tx = this.root.getElementsByTagName("textarea");
+        for (let i = 0; i < tx.length; i++) {
+        if (tx[i].value == '') {
+            tx[i].setAttribute("style", "height:" + txHeight + "px;overflow-y:hidden;");
+        } else {
+            tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+        }
+        tx[i].addEventListener("input", OnInput, false);
+        }
+
+        function OnInput(e) {
+        this.style.height = "auto";
+        this.style.height = (this.scrollHeight) + "px";
+        }
     }
 
     createListItemHTML(id, title, body, updated){
@@ -128,13 +151,11 @@ export default class NotesView{
 
     ToolItemHTML={
         checkbox:   `<label class="form-control"> <input type="checkbox" name="checkbox" /> </label>
-                     <textarea class="notes-body" placeholder="task..."></textarea>`,
+                     <textarea class="notes-body" placeholder="task..." rows="1"></textarea>`,
 
-        list:    `<label class="form-control"><li></li><textarea class="notes-body" placeholder="list item..."></textarea></label> `,
+        list:    `<label class="form-control"><li></li></label><textarea class="notes-body" placeholder="list item..." rows="1"></textarea> `,
 
-        table:   `<input type="checkbox" id="checkbox" value="HTML"><span class="checkmark"></span>
-                     <label for="html"><textarea class="notes-body" placeholder="task..."></textarea></label>`
-
+        text:    `<textarea class="notes-body" placeholder="text..." rows="1"></textarea>`
     }
     
 

@@ -118,32 +118,32 @@ html, body{
 /*------------------------------------Note-Editor---------------------------------------------------*/
 
 .notes-preview{
-    display: flex;
     position: relative;
-    flex-direction: column;
-    background: white;
-    flex-direction: column;
-    flex-grow: 1;
     justify-content: space-between;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 90%;
+    height: auto;
 }
+
 .editor{
-    display: flex;
-    flex-direction: column;
-    height: 80vh;
-    width: 70vw;
+    display:block;
+    width: 90%;
+    height: auto;
     padding: 1em 2em;
+    padding-bottom: 4em;
 }
 .notes-title,
 .notes-body {
     background: white;
     border: none;
     outline: none;
+    height: auto;
 }
 .notes-body{
-    flex-grow: 1;
     line-height: 1.5;
-    overflow: none;
+    resize: none;
+    box-sizing: content-box;
 }
 .text-body {
     display: flex;
@@ -153,8 +153,8 @@ html, body{
     margin-top: 3px;
     padding: 5px;
     width: 100%;
-    height:100%;
-    overflow: scroll;
+    height:auto;
+    overflow-y: hidden;
 }
 
 .notes-title {
@@ -162,7 +162,7 @@ html, body{
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-    
+    width: 100%;
 }
 /*--------------------------------------------------------*/
 .tool-container {
@@ -171,14 +171,16 @@ html, body{
     flex-shrink: 1;
     line-height: 1;
     cursor: pointer;
-    align-items: center;
+    align-items:baseline;
 }
 .tool-container .notes-body{
     width: 100%;
     height: 100%;
     line-height: 1.5em;
-    
     resize: none;
+    margin-top: 0.2em;
+    resize: none;
+    box-sizing: content-box;
 }
 .form-control {
     display: grid;
@@ -206,24 +208,29 @@ input[type="checkbox"] {
     margin: 0;
     font: inherit;
     color: currentColor;
-    width: 0.9em;
-    height: 0.9em;
+    width: 0.8em;
+    height: 0.8em;
     border: 0.13em solid currentColor;
     border-radius: 0.13em;
-    transform: translateY(-0.6em);
+    transform: translateY(0.18em);
   }
-.form-control li{
-    transform: translateX(1em);
-    transform: translateY(-0.6em);
+  .form-control li{
+    transform: translateX(0.3em);
+    transform: translateY(0.15em);
   }
 
  /*--------------------------------------------*/ 
 
 .tool-bar{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
     border-top: solid grey 1px;
     display: flex;
-    padding: 3px;
+    padding: 5px;
     margin: 5px;
+    margin-top: 1em;
 }
 #tool{
     margin: 3px;
@@ -241,7 +248,23 @@ button{
     margin: 3px;
     font-family: Sans-serif;
 }
-
+div:has(img){/*not working*/
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 20vw;
+    height: auto;
+}
+img{
+    position: relative;
+    left: -100px;
+    width: 50%;
+    height: 50%;
+    
+}
+#text-div{
+    margin-top: 1em;
+}
 @media (max-width:800px){
     .tool-bar{
         display: grid;
