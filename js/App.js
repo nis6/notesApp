@@ -1,5 +1,5 @@
 import NotesView from "./NotesView.js"
-import NotesAPI from "./NotesAPI.js";
+import NotesAPI from "./NotesAPI_localStorage.js";
 
 export default class App{
 
@@ -34,9 +34,9 @@ export default class App{
         this.view.updateActiveNote(note);//visible note-selection in side-bar and set the preview to Active note
     }
 
-    handlers(){
+    handlers(){ 
         return{
-            //arrow function doesn't have its own binding for 'this'
+            //arrow function doesn't have its own binding for 'this' [static binding]
             //so this retains the value of enclosing lexical context's this 
             onNoteSelect: noteId=>{
                 const selectedNote=this.notes.find(note=>note.id==noteId);
@@ -61,7 +61,6 @@ export default class App{
                });
                this.refreshNotes();
                const note=this.notes.find(note=>note.id==this.activeNote.id);
-               this.view.moveEditedNote(note);
             },
             onNoteDelete: noteId=>{
                 NotesAPI.deleteNote(noteId);

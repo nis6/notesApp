@@ -19,102 +19,7 @@ html, body{
     height: 100vh;
     overflow: auto;
 }
-/*---------------------------Side-bar--------------------------------------------------------------*/
-.notes .notes-sidebar{
-    background: rgb(38, 38, 65);
-    border-right: grey 2px solid;
-    flex-shrink: 0;
-    overflow-y: auto;
-    width: 250px;
-    padding: 1em;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-}
 
-.addnotes{
-    border-radius: 4px;
-    background-color: rgb(105, 105, 129);
-    color:white;
-    width: 100%;
-    height: 40px;
-    font-size: 1.25em;
-    font-weight: 120;
-    margin: 10px 0;
-}
-.addnotes:hover{
-    background-color: rgb(42, 42, 68);
-    border:white solid 1px;
-}
-.notes-list{
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    flex-grow: 0;
-    align-items: center;
-    
-}
-/*--------------------------Side-bar-notes-item----------------------------------------------------*/
-.notes-list-item{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    position: relative;
-    font: smaller;
-    margin: 5px;
-    border: gray solid 1px;
-    border-radius: 5px;
-    font-family: Arial, sans-serif;
-    font-size: smaller;
-    height: 170px;
-    width: 100%;
-}
-
-.notes-list-item-selected{
-    padding: 0 5px ;
-    font-weight: 300;
-    background-color: white;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-size: smaller;
-    height: 170px;
-    width: 100%;
-}
-
-.notes-mini-title{
-    font-size: 0.9em;
-    padding: 4px;
-    font-weight: bold;
-    color: rgb(80, 79, 79);
-    margin: 4px;
-    border-bottom: 1px rgb(129, 127, 127) solid;
-}
-.notes-mini-body{
-    margin: 2px;
-    height: 60px;
-    padding: 3px 4px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    text-align: justify;
-    font-size: 0.9em;
-}
-.notes-mini-updated{
-        align-self: flex-end;
-        color: rgb(100, 98, 98);
-        font-style: italic;
-        text-align: right;
-        padding: 3px;
-        padding-top: 4px;
-        font-size: smaller;
-}
-.notes-list-item:hover {
-    background-color: rgb(66, 66, 94);
-    color: gainsboro;
-    border: solid gainsboro 1px;
-}
-.notes-list-item:hover .notes-mini-title{
-    color: gainsboro;
-}
 /*------------------------------------Note-Editor---------------------------------------------------*/
 
 .notes-preview{
@@ -191,6 +96,11 @@ html, body{
 .form-control + .form-control {
     margin-top: 1em;    /*to keep gap between adjacent checkboxes*/
   }
+
+.tool-container{
+    margin: 0.2rem 0 ;
+}  
+  /*-------------------------checkbox---------------------------------------------------------------------*/
 /*hide native checkbox*/
 .tool-container input[type="checkbox"] {
     /* Add if not using autoprefixer */
@@ -202,23 +112,57 @@ html, body{
     margin: 0;
   }
   /* Create a custom checkbox */
-input[type="checkbox"] {
+#customCheckbox{
     appearance: none;
     background-color: #fff;
     margin: 0;
     font: inherit;
     color: currentColor;
-    width: 0.8em;
-    height: 0.8em;
+    width: 0.6em;
+    height: 0.6em;
     border: 0.13em solid currentColor;
     border-radius: 0.13em;
-    transform: translateY(0.18em);
-  }
-  .form-control li{
-    transform: translateX(0.3em);
-    transform: translateY(0.15em);
+    transform: translate(-0.2em,-0.2em);
+    
   }
 
+  #checkbox-div:hover input ~ #customCheckbox{
+    border-color: rgb(66, 66, 83);
+  }
+  #checkbox-div input:checked ~ #customCheckbox{
+    border-color: rgb(66, 66, 83);
+    background-color: rgb(236, 236, 243);
+  }
+  #customCheckbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  /* Show the checkmark when checked */
+  #checkbox-div input:checked ~ #customCheckbox:after {
+    display: block;
+  }
+  /* Style the checkmark/indicator */
+  #checkbox-div #customCheckbox:after {
+    left: 0.2rem;
+    top: -0.1rem;
+    width: 0.2rem;
+    height: 0.5rem;
+    border: solid rgb(66, 66, 83);
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  
+  .form-control li{
+    transform: translate(1.4em,0.1em);
+  }
+   
+  #listtext{
+    padding-left: 1rem;
+  }
+ 
  /*--------------------------------------------*/ 
 
 .tool-bar{
@@ -255,6 +199,7 @@ div:has(img){/*not working*/
     width: 20vw;
     height: auto;
 }
+/*  scale-down
 img{
     position: relative;
     left: -100px;
@@ -262,6 +207,11 @@ img{
     height: 50%;
     
 }
+\ standard*/
+img{
+    width: 100%;
+}
+
 #text-div{
     margin-top: 1em;
 }

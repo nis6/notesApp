@@ -1,7 +1,6 @@
 //API communicating with local storage
 
 export default class NotesAPI{
-
     //
     static getAllNotes(){
         //converts the local storage string into js object if empty then parses empty arra

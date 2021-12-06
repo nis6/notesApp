@@ -1,5 +1,5 @@
 export default class NotesView{
-    constructor(root, {onNoteSelect,onNoteAdd,onNoteEdit,onNoteDelete}={}/*empty obj incase no functino obj passed to the class*/ ){
+    constructor(root, {onNoteSelect,onNoteAdd,onNoteEdit,onNoteDelete}={}/*empty obj incase no function obj passed to the constructor*/ ){
             this.root=root;
             this.onNoteSelect=onNoteSelect;
             this.onNoteAdd=onNoteAdd;
@@ -22,29 +22,37 @@ export default class NotesView{
                                         <button class="check-box">Check-box</button>
                                         <button class="list">List</button>
                                         <button class="image">Image</button>
-                                        <button class="table">Table</button>
                                         <button class="text">Text</button>
+                                        <div class="theme">
+                                            <button class="btnTheme">Theme</button>
+                                        </div>
                                     </div>
                                 </div>`
 
-            
+            //side-bar Elements
             const btnAddNote=this.root.querySelector(".addnotes");
+
+            //tool-bar Elements
             const btnCheckbox=this.root.querySelector(".check-box");
             const btnList=this.root.querySelector(".list");
             const btnImage=this.root.querySelector(".image");
             const btnText=this.root.querySelector(".text");
+            const btnTheme=this.root.querySelector(".btnTheme");
 
+            //preview Elements
             const editor=this.root.querySelector(".editor");
             const textbody=this.root.querySelector(".text-body");
             const inpTitle=this.root.querySelector(".notes-title");
             const inpBody=this.root.querySelector(".notes-body");
             
             
-            
+            //general element
             const textarea = this.root.querySelector('textarea');
             const growingTextarea = new Autogrow(textarea);
 
+
             btnAddNote.addEventListener("click",onNoteAdd);
+
             btnCheckbox.addEventListener("click",()=>{
                 textbody.insertAdjacentHTML("beforeend",`
                     <div class="tool-container" id="checkbox-div">
@@ -112,7 +120,7 @@ export default class NotesView{
 
     }
 
-
+    
     updatetextarea(){
         const txHeight = 20;
         const tx = this.root.getElementsByTagName("textarea");
@@ -150,10 +158,10 @@ export default class NotesView{
     }
 
     ToolItemHTML={
-        checkbox:   `<label class="form-control"> <input type="checkbox" name="checkbox" /> </label>
+        checkbox:   `<label class="form-control"> <input type="checkbox" name="checkbox" /> <span id="customCheckbox"></span></label>
                      <textarea class="notes-body" placeholder="task..." rows="1"></textarea>`,
 
-        list:    `<label class="form-control"><li></li></label><textarea class="notes-body" placeholder="list item..." rows="1"></textarea> `,
+        list:    `<label class="form-control"><li></li></label><textarea class="notes-body" placeholder="list item..." rows="1" id="listtext"></textarea> `,
 
         text:    `<textarea class="notes-body" placeholder="text..." rows="1"></textarea>`
     }

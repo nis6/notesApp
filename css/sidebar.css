@@ -1,0 +1,96 @@
+/*---------------------------Side-bar--------------------------------------------------------------*/
+.notes .notes-sidebar{
+    background: rgb(38, 38, 65);
+    border-right: grey 2px solid;
+    flex-shrink: 0;
+    overflow-y: auto;
+    width: 250px;
+    padding: 1em;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.addnotes{
+    border-radius: 4px;
+    background-color: rgb(105, 105, 129);
+    color:white;
+    width: 100%;
+    height: 40px;
+    font-size: 1.25em;
+    font-weight: 120;
+    margin: 10px 0;
+}
+.addnotes:hover{
+    background-color: rgb(42, 42, 68);
+    border:white solid 1px;
+}
+.notes-list{
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    flex-grow: 0;
+    align-items: center;
+    
+}
+/*--------------------------Side-bar-notes-item----------------------------------------------------*/
+.notes-list-item{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    position: relative;
+    font: smaller;
+    margin: 5px;
+    border: gray solid 1px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: smaller;
+    height: 170px;
+    width: 100%;
+}
+
+.notes-list-item-selected{
+    padding: 0 5px ;
+    font-weight: 300;
+    background-color: white;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: smaller;
+    height: 170px;
+    width: 100%;
+}
+
+.notes-mini-title{
+    font-size: 0.9em;
+    padding: 4px;
+    font-weight: bold;
+    color: rgb(80, 79, 79);
+    margin: 4px;
+    border-bottom: 1px rgb(129, 127, 127) solid;
+}
+.notes-mini-body{
+    margin: 2px;
+    height: 60px;
+    padding: 3px 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: justify;
+    font-size: 0.9em;
+}
+.notes-mini-updated{
+        align-self: flex-end;
+        color: rgb(100, 98, 98);
+        font-style: italic;
+        text-align: right;
+        padding: 3px;
+        padding-top: 4px;
+        font-size: smaller;
+}
+.notes-list-item:hover {
+    background-color: rgb(66, 66, 94);
+    color: gainsboro;
+    border: solid gainsboro 1px;
+}
+.notes-list-item:hover .notes-mini-title{
+    color: gainsboro;
+}
